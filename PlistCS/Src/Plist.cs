@@ -97,7 +97,11 @@ namespace PlistCS
             {
                 XmlDocument xml = new XmlDocument();
                 xml.XmlResolver = null;
-                xml.Load(stream);
+                XmlReaderSettings readerSettings = new XmlReaderSettings();
+                readerSettings.IgnoreComments = true;
+                readerSettings.DtdProcessing = DtdProcessing.Parse;
+                XmlReader reader = XmlReader.Create(stream, readerSettings);
+                xml.Load(reader);
                 return readXml(xml);
             }
         }
